@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Lisää uusi argumentti</h1>
+<div class="mycard">
+    <form class="text-center" action="{% url 'add_yay' scale_id %}" method="post">
+    {% csrf_token %}
+        <label for="title">Aihe</label><br />
+        <input class="w-75 mt-3" type="text" name="title" id="title" />
+        <br>
+        <br><br>
+        <div class="d-flex justify-content-center">
+            <input class="btn btn-success mx-3" type="submit" value="Julkaise" />
+            <a class="btn btn-danger mx-3" href="{% url 'detail' scale_id %}">Takaisin</a>
+        </div>
+        
+    </form>
+    <br>
+    <br>
+</div>
+{% endblock %}

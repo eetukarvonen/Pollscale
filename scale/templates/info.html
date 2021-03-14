@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="">
+        <h1 style="text-align: left;">Pollscale v0.3</h1>
+        <br>
+        <p class="mb-0">- Pollscale on beta-vaiheessa oleva yhden henkilön projekti. Tämä tarkoittaa sitä, että sivuilla saattaa esiintyä bugeja</p>
+        <p class="mb-0">- Joskus isomman päivityksen kohdalla on mahdollista, että kaikki tiedot nollataan</p>
+        <p class="mb-0">- Tässä vaiheessa ylläpitäjä omaa täyden vallan hallita sisältöä</p>
+        <p class="mb-0">- Sovellus on tehty työpöytä-edellä, eli pieninäyttöisillä mobiililaitteilla ulkoasu saattaa rikkoutua</p>
+        <p class="mb-0">- Tässä vaiheessa tarkoituksena on kokeilla, miten tällainen sovellus toimii</p>
+        <p class="mb-0">- Jatkossa on mahdollista toteuttaa esim. vahva tunnistautuminen. Myös visuaalista ulkonäköä olisi tarkoitus parantaa sekä lisätä haluttuja toiminnallisuuksia.</p>
+        <br>
+        <h4>Ohjeita käyttäjille</h4>
+        <p class="mb-0">- Käyttäjät voivat luoda omia aiheitaan äänestettäväksi mielinmäärin, eikä aiheiden kanssa tarvitse säästellä. Saa käyttää mielikuvitusta</p>
+        <p class="mb-0">- Omaa ääntänsä ei kuitenkaan kannata antaa kevyin perustein, vaan äänestää niitä aiheita ja argumentteja, joista kokee omaavansa vahvan perustan. </p>
+        <p class="mb-0">- Oman äänen voi kuitenkin vaihtaa koska tahansa ja äänet säilyvät tietokannassa</p>
+        <br>
+        <h4>Tietosuojasta</h4>
+        <p class="mb-0">- Käyttäjätilin luomiseen tarvitaan vain käyttäjätunnus ja salasana.</p>
+        <p class="mb-0">- Käyttäjätiliä käytetään äänestystoiminnon toteuttamiseen.</p>
+        <p class="mb-0">- Tietokantaan tallennetaan käyttäjätunnus, salasana salattuna, sekä annetut äänet kuhunkin aiheeseen. Ei muuta.</p>
+        <br>
+        <h4>Kehittäjän mietintöjä</h4>
+        <p class="mb-0">- Pollscale on vielä prototyyppi asteella. Ideana olisi kehittää työkalu, jonka avulla voisi objektiivisemmin mitata asioita.</p>
+        <p class="mb-0">- Visiona olisi kehittää ikään kuin tasapainovaa'an kaltainen työkalu, jolla pystyy punnitsemaan asioiden "hyvyyttä". Jotkin argumentit ovat painavampia kuin toiset ja jotkin argumentit taas täysin kumottavissa. 
+            "Vaa'an avulla punnitsemalla" voisi saada objektiivisempaa kuvaa argumenttien vahvuudesta ja sen myötä itse substanssista.
+        </p>
+        <p class="mb-0">- Kehittäjällä on siis jonkinlainen visio työkalusta, mutta käytännön toteutus on vielä tässä vaiheessa hieman hämärän peitossa, miten se kannattaisi toteuttaa.</p>
+        <p class="mb-0">- Työkalua voi käyttää hyödyksi esimerkiksi poliittisissa kysymyksissä tai lakimiesten apuna.</p>
+        <p class="mb-0">- Toivottavasti käyttäjät keksivät myös muita käyttötarkoituksia!</p>
+        <br>
+        <p>Palautteet, kehitysideat ja muut yhteydenotot sähköpostilla osoitteeseen: pollscale.admin@protonmail.com</p>
+    </div>
+{% endblock %}

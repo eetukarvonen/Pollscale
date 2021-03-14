@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Äänestettävät aiheet</h1>
+    {% if details %}
+        {% for dic in details %}
+            <div class="mycard">
+                <h2>{{ dic.title }}</h2>
+
+                <div class="row">
+                    <h1 class="col">JAA</h1>
+                    <div class="col text-center"></div>
+                    <h1 class="col">EI</h1>
+                </div>
+        
+                <div class="row">
+                    <div class="col text-center">{{ dic.yays }}</div>
+                    <div class="col text-center">Ääniä yhteensä: {{ dic.totals  }}</div>
+                    <div class="col text-center">{{ dic.nays }}</div>
+                </div>
+            
+                <div class="row">
+                    <div class="col text-center">{{ dic.yay_percentage }}%</div>
+                    <div class="col text-center"></div>
+                    <div class="col text-center">{{ dic.nay_percentage }}%</div>
+                </div>
+
+                <div class="progress" style="height: 50px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ dic.yay_percentage }}%;" aria-valuenow="{{ dic.yay_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{ dic.nay_percentage }}%;" aria-valuenow="{{ dic.nay_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
+                <div class="text-center m-5">
+                    <a class="show-more" href="{% url 'detail' dic.id %}">Lisätietoja</a>
+                </div>
+
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Tyhjää on. Aloita luomalla uusi aihe</p>
+    {% endif %}
+
+    <!-- Button to add scales -->
+    <a class="add-button" href="{% url 'add' %}">+</a>
+{% endblock %}

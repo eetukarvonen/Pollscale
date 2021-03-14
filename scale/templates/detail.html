@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="mycard">
+        <h1>{{ details.title }}: 
+            {% if parent %}
+                <h2>Argumentti "{{ parent.scale_title }}" 
+                {% if details.yay_or_nay_of_parent == 'yay' %}
+                    puolesta
+                {% elif details.yay_or_nay_of_parent == 'nay' %}
+                    vastaan
+                {% endif %}</h2>
+            {% endif %}
+        </h1>
+
+        <div class="row">
+            <h1 class="col">JAA</h1>
+            <div class="col"></div>
+            <h1 class="col">EI</h1>
+        </div>
+
+        <div class="row">
+            <div class="col text-center">{{ details.yays }}</div>
+            <div class="col text-center">Ääniä yhteensä: {{ details.totals  }}</div>
+            <div class="col text-center">{{ details.nays }}</div>
+        </div>
+    
+        <div class="row">
+            <div class="col text-center">{{ details.yay_percentage }}%</div>
+            <div class="col"></div>
+            <div class="col text-center">{{ details.nay_percentage }}%</div>
+        </div>
+
+        <div class="progress mb-5" style="height: 50px;">
+            <div class="progress-bar bg-success" role="progressbar" style="width: {{ details.yay_percentage }}%;" aria-valuenow="{{ details.yay_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-danger" role="progressbar" style="width: {{ details.nay_percentage }}%;" aria-valuenow="{{ details.nay_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+        {% if user.is_authenticated %}
+            <h3>Sinun ääni: 
+                {% if prev_vote == 'yay' %}
+                    JAA
+                {% elif prev_vote == 'nay' %}
+                    EI
+                {% else %}
+                    ei ääntä
+                {% endif %}
+            </h3>
+            <div class="d-flex justify-content-around my-5">
+                <form action="{% url 'vote' details.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="vote" value="yay">
+                    <button class="btn btn-success" type="submit">Äänestä JAA</button>
+                </form>
+                <form action="{% url 'vote' details.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="vote" value="nothing">
+                    <button class="btn btn-secondary" type="submit">Poista oma ääni</button>
+                </form>
+                <form action="{% url 'vote' details.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="vote" value="nay">
+                    <button class="btn btn-danger" type="submit">Äänestä EI</button>
+                </form>
+            </div>
+        {% else %}
+            <h2>Kirjaudu sisään äänestääksesi</h2>
+        {% endif %}
+        
+
+        <br><br>
+        <div class="d-flex justify-content-around">
+            <div class="w-100">
+                <h2>Argumentit JAA</h2><br>
+                <ul class="arg-list p-0">
+                    {% for child in children_details %}
+                        {% if child.yay_or_nay_of_parent == 'yay' %}
+                            <div class="mycard">
+                                <li><h3>{{ child.title }}</h3></li>
+                                <br>
+
+                                <div class="row">
+                                    <h3 class="col">JAA</h3>
+                                    <div class="col text-center">Yhteensä</div>
+                                    <h3 class="col">EI</h3>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col text-center">{{ child.yays }}</div>
+                                    <div class="col text-center">{{ child.totals  }}</div>
+                                    <div class="col text-center">{{ child.nays }}</div>
+                                </div>
+                            
+                                <div class="row">
+                                    <div class="col text-center">{{ child.yay_percentage }}%</div>
+                                    <div class="col"></div>
+                                    <div class="col text-center">{{ child.nay_percentage }}%</div>
+                                </div>
+                                <div class="progress mb-5" style="height: 20px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ child.yay_percentage }}%;" aria-valuenow="{{ child.yay_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{ child.nay_percentage }}%;" aria-valuenow="{{ child.nay_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="text-center"><a class="show-more" href="{% url 'detail' child.id %}">Lisätietoja</a></div>
+                                <br>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </ul><br>
+                <!-- Button to add scales -->
+                <a class="add-button" href="{% url 'add_yay' details.id %}">&#43;</a><br>
+            </div>
+            
+            <div class="w-100">
+                <h2>Argumentit EI</h2><br>
+                <ul class="arg-list p-0">
+                    {% for child in children_details %}
+                        {% if child.yay_or_nay_of_parent == 'nay' %}
+                            <div class="mycard">
+                                <li><h3>{{ child.title }}</h3></li>
+                                <br>
+
+                                <div class="row">
+                                    <h3 class="col">JAA</h3>
+                                    <div class="col text-center">Yhteensä</div>
+                                    <h3 class="col">EI</h3>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col text-center">{{ child.yays }}</div>
+                                    <div class="col text-center">{{ child.totals  }}</div>
+                                    <div class="col text-center">{{ child.nays }}</div>
+                                </div>
+                            
+                                <div class="row">
+                                    <div class="col text-center">{{ child.yay_percentage }}%</div>
+                                    <div class="col"></div>
+                                    <div class="col text-center">{{ child.nay_percentage }}%</div>
+                                </div>
+                                <div class="progress mb-5" style="height: 20px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ child.yay_percentage }}%;" aria-valuenow="{{ child.yay_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{ child.nay_percentage }}%;" aria-valuenow="{{ child.nay_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="text-center"><a class="show-more" href="{% url 'detail' child.id %}">Lisätietoja</a></div>
+                                <br>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </ul><br>
+                <!-- Button to add scales -->
+                <a class="add-button" href="{% url 'add_nay' details.id %}">&#43;</a><br>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="d-flex justify-content-center my-5">
+        {% if parent %}
+            <a class="btn btn-danger mx-5" href="{% url 'detail' parent.id %}">Takaisin "{{parent.scale_title}}"</a>
+        {% endif %}
+        <a class="btn btn-danger mx-5" href="{% url 'index' %}">Takaisin etusivulle</a>
+    </div>
+
+{% endblock %}
